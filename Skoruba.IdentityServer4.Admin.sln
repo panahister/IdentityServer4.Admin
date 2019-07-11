@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.452
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{588205D4-3A30-4DA4-849D-C7422C396DAA}"
 EndProject
@@ -33,7 +33,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skoruba.IdentityServer4.Adm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skoruba.IdentityServer4.Admin.EntityFramework.Shared", "src\Skoruba.IdentityServer4.Admin.EntityFramework.Shared\Skoruba.IdentityServer4.Admin.EntityFramework.Shared.csproj", "{E18F8C70-7448-4039-9D78-1369D7F498EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skoruba.IdentityServer4.Admin.EntityFramework.Extensions", "src\Skoruba.IdentityServer4.Admin.EntityFramework.Extensions\Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.csproj", "{2DD3CB7D-462E-4039-B684-81B1E88C7C6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skoruba.IdentityServer4.Admin.EntityFramework.Extensions", "src\Skoruba.IdentityServer4.Admin.EntityFramework.Extensions\Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.csproj", "{2DD3CB7D-462E-4039-B684-81B1E88C7C6A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Custom.EntityFramework", "Skoruba.IdentityServer4.Admin.Custom.EntityFramework\Custom.EntityFramework.csproj", "{458B9333-7FD9-43C8-AA3E-5439AA29E34D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom.BusinessLogic.Identity", "Custom.BusinessLogic.Identity\Custom.BusinessLogic.Identity.csproj", "{08A0218E-F35C-4A98-AA73-5C63F3C243A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom.EntityFramework.Identity", "Custom.EntityFramework.Identity\Custom.EntityFramework.Identity.csproj", "{5A343F6A-EED3-4CE6-967E-52C7E3D25EFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +99,18 @@ Global
 		{2DD3CB7D-462E-4039-B684-81B1E88C7C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DD3CB7D-462E-4039-B684-81B1E88C7C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DD3CB7D-462E-4039-B684-81B1E88C7C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{458B9333-7FD9-43C8-AA3E-5439AA29E34D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{458B9333-7FD9-43C8-AA3E-5439AA29E34D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{458B9333-7FD9-43C8-AA3E-5439AA29E34D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{458B9333-7FD9-43C8-AA3E-5439AA29E34D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08A0218E-F35C-4A98-AA73-5C63F3C243A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08A0218E-F35C-4A98-AA73-5C63F3C243A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08A0218E-F35C-4A98-AA73-5C63F3C243A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08A0218E-F35C-4A98-AA73-5C63F3C243A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A343F6A-EED3-4CE6-967E-52C7E3D25EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A343F6A-EED3-4CE6-967E-52C7E3D25EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A343F6A-EED3-4CE6-967E-52C7E3D25EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A343F6A-EED3-4CE6-967E-52C7E3D25EFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +129,9 @@ Global
 		{8F112368-2E45-4C3A-922E-85AB6056F559} = {588205D4-3A30-4DA4-849D-C7422C396DAA}
 		{E18F8C70-7448-4039-9D78-1369D7F498EF} = {588205D4-3A30-4DA4-849D-C7422C396DAA}
 		{2DD3CB7D-462E-4039-B684-81B1E88C7C6A} = {588205D4-3A30-4DA4-849D-C7422C396DAA}
+		{458B9333-7FD9-43C8-AA3E-5439AA29E34D} = {588205D4-3A30-4DA4-849D-C7422C396DAA}
+		{08A0218E-F35C-4A98-AA73-5C63F3C243A3} = {588205D4-3A30-4DA4-849D-C7422C396DAA}
+		{5A343F6A-EED3-4CE6-967E-52C7E3D25EFE} = {588205D4-3A30-4DA4-849D-C7422C396DAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3166EDE-037B-4C68-BEBA-5DE9C5E3DB82}

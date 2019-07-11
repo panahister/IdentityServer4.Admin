@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Custom.BusinessLogic.Identity.Dtos;
+using Custom.BusinessLogic.Identity.Mappers;
+using Custom.EntityFramework.DbContexts;
+using Custom.EntityFramework.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -46,7 +50,7 @@ namespace Skoruba.IdentityServer4.Admin.Api
             var adminApiConfiguration = Configuration.GetSection(nameof(AdminApiConfiguration)).Get<AdminApiConfiguration>();
             services.AddSingleton(adminApiConfiguration);
 
-            services.AddDbContexts<AdminIdentityDbContext, IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminLogDbContext>(Configuration);
+            services.AddDbContexts<AdminIdentityDbContext, IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminLogDbContext, CustomDbContext>(Configuration);
             services.AddScoped<ControllerExceptionFilterAttribute>();
 
             services.AddApiAuthentication<AdminIdentityDbContext, UserIdentity, UserIdentityRole>(adminApiConfiguration);
@@ -55,6 +59,10 @@ namespace Skoruba.IdentityServer4.Admin.Api
             var profileTypes = new HashSet<Type>
             {
                 typeof(IdentityMapperProfile<RoleDto<string>, string, UserRolesDto<RoleDto<string>, string, string>, string, UserClaimsDto<string>, UserClaimDto<string>, UserProviderDto<string>, UserProvidersDto<string>, UserChangePasswordDto<string>,RoleClaimDto<string>, RoleClaimsDto<string>>)
+            };
+            var customProfileTypes = new HashSet<Type>
+            {
+                typeof(CustomMapperProfile<PersonDto<long, UserDto<string>,string>,long,Person,UserIdentity,UserDto<string>,string,PepoleDto<PersonDto<long, UserDto<string>, string>, long, UserDto<string>, string>,long,string>)
             };
 
             services.AddAdminAspNetIdentityServices<AdminIdentityDbContext, IdentityServerPersistedGrantDbContext, UserDto<string>, string, RoleDto<string>, string, string, string,
@@ -73,7 +81,9 @@ namespace Skoruba.IdentityServer4.Admin.Api
                 UserClaimsDto<string>, UserProviderDto<string>, UserProvidersDto<string>, UserChangePasswordDto<string>,
                 RoleClaimsDto<string>>();
 
-            services.AddSwaggerGen(options =>
+            //Mehdi
+            services.AddCustomIdentityServices<CustomDbContext, Person, UserIdentity, PersonDto<long, UserDto<string>, string>, long, UserDto<string>,string, PepoleDto<PersonDto<long, UserDto<string>, string>, long, UserDto<string>, string>,long,string>(customProfileTypes);
+             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc(ApiConfigurationConsts.ApiVersionV1, new Info { Title = ApiConfigurationConsts.ApiName, Version = ApiConfigurationConsts.ApiVersionV1 });
 

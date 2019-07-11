@@ -15,5 +15,8 @@
         public const string ResourcesPath = "Resources";
 
         public const string AdminConfigurationKey = "AdminConfiguration";
+
+        //Mehdi
+        public const string AdminCustomDbConnectionStringKey = "AdminCustomDbConnection";
     }
 }

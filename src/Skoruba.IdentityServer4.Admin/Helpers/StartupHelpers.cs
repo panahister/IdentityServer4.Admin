@@ -35,6 +35,7 @@ using Skoruba.IdentityServer4.Admin.Configuration.Constants;
 using Skoruba.IdentityServer4.Admin.Configuration.Interfaces;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
 using Skoruba.IdentityServer4.Admin.Helpers.Localization;
+using Custom.EntityFramework.Interfaces;
 
 namespace Skoruba.IdentityServer4.Admin.Helpers
 {
@@ -90,11 +91,12 @@ namespace Skoruba.IdentityServer4.Admin.Helpers
         /// <typeparam name="TLogDbContext"></typeparam>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
-        public static void RegisterDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext>(this IServiceCollection services, IConfigurationRoot configuration)
+        public static void RegisterDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TCustomDbContext>(this IServiceCollection services, IConfigurationRoot configuration)
             where TIdentityDbContext : DbContext
             where TPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
             where TConfigurationDbContext : DbContext, IAdminConfigurationDbContext
             where TLogDbContext : DbContext, IAdminLogDbContext
+            where TCustomDbContext : DbContext, ICustomDbContext
         {
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
@@ -124,6 +126,13 @@ namespace Skoruba.IdentityServer4.Admin.Helpers
                 options.UseSqlServer(
                     configuration.GetConnectionString(ConfigurationConsts.AdminLogDbConnectionStringKey),
                     optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)));
+
+            //Mehdi
+            // Custom DB from existing connection
+            services.AddDbContext<TCustomDbContext>(options =>
+                options.UseSqlServer(
+                    configuration.GetConnectionString(ConfigurationConsts.AdminCustomDbConnectionStringKey),
+                    optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)));
         }
 
         /// <summary>
@@ -135,17 +144,19 @@ namespace Skoruba.IdentityServer4.Admin.Helpers
         /// <typeparam name="TLogDbContext"></typeparam>
         /// <typeparam name="TIdentityDbContext"></typeparam>
         /// <param name="services"></param>
-        public static void RegisterDbContextsStaging<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext>(this IServiceCollection services)
+        public static void RegisterDbContextsStaging<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TCustomDbContext>(this IServiceCollection services)
             where TIdentityDbContext : DbContext
             where TPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
             where TConfigurationDbContext : DbContext, IAdminConfigurationDbContext
             where TLogDbContext : DbContext, IAdminLogDbContext
+            where TCustomDbContext : DbContext, ICustomDbContext
         {
             var persistedGrantsDatabaseName = Guid.NewGuid().ToString();
             var configurationDatabaseName = Guid.NewGuid().ToString();
             var logDatabaseName = Guid.NewGuid().ToString();
             var identityDatabaseName = Guid.NewGuid().ToString();
-
+            //Mehdi
+            var customDatabaseName = Guid.NewGuid().ToString();
             var operationalStoreOptions = new OperationalStoreOptions();
             services.AddSingleton(operationalStoreOptions);
 
@@ -156,6 +167,8 @@ namespace Skoruba.IdentityServer4.Admin.Helpers
             services.AddDbContext<TPersistedGrantDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase(persistedGrantsDatabaseName));
             services.AddDbContext<TConfigurationDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase(configurationDatabaseName));
             services.AddDbContext<TLogDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase(logDatabaseName));
+            //Mehdi
+            services.AddDbContext<TCustomDbContext>(optionsBuilder => optionsBuilder.UseInMemoryDatabase(customDatabaseName));
         }
 
         /// <summary>
@@ -272,19 +285,20 @@ namespace Skoruba.IdentityServer4.Admin.Helpers
         /// <param name="services"></param>
         /// <param name="hostingEnvironment"></param>
         /// <param name="configuration"></param>
-        public static void AddDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext>(this IServiceCollection services, IHostingEnvironment hostingEnvironment, IConfigurationRoot configuration)
+        public static void AddDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TCustomDbContext>(this IServiceCollection services, IHostingEnvironment hostingEnvironment, IConfigurationRoot configuration)
             where TIdentityDbContext : DbContext
             where TPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
             where TConfigurationDbContext : DbContext, IAdminConfigurationDbContext
             where TLogDbContext : DbContext, IAdminLogDbContext
+            where TCustomDbContext : DbContext, ICustomDbContext
         {
             if (hostingEnvironment.IsStaging())
             {
-                services.RegisterDbContextsStaging<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext>();
+                services.RegisterDbContextsStaging<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TCustomDbContext>();
             }
             else
             {
-                services.RegisterDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext>(configuration);
+                services.RegisterDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TCustomDbContext>(configuration);
             }
         }
 

@@ -46,6 +46,7 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Controllers
         }
 
 
+
         [Fact]
         public async Task AddUser()
         {

@@ -25,6 +25,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Custom.BusinessLogic.Identity\Custom.BusinessLogic.Identity.csproj" />
+	  <ProjectReference Include="..\..\Custom.EntityFramework.Identity\Custom.EntityFramework.Identity.csproj" />
+	  <ProjectReference Include="..\..\Skoruba.IdentityServer4.Admin.Custom.EntityFramework\Custom.EntityFramework.csproj" />
+	  <ProjectReference Include="..\..\src\Skoruba.IdentityServer4.Admin.Api\Skoruba.IdentityServer4.Admin.Api.csproj" />
 	  <ProjectReference Include="..\..\src\Skoruba.IdentityServer4.Admin\Skoruba.IdentityServer4.Admin.csproj" />
 	</ItemGroup>
 

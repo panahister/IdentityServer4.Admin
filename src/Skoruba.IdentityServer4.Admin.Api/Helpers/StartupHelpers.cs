@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Custom.EntityFramework.Interfaces;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.EntityFramework.Storage;
 using Microsoft.AspNetCore.Builder;
@@ -78,11 +79,12 @@ namespace Skoruba.IdentityServer4.Admin.Api.Helpers
         /// <typeparam name="TIdentityDbContext"></typeparam>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
-        public static void AddDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext>(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TCustomDbContext>(this IServiceCollection services, IConfiguration configuration)
         where TIdentityDbContext : DbContext
         where TPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
         where TConfigurationDbContext : DbContext, IAdminConfigurationDbContext
         where TLogDbContext : DbContext, IAdminLogDbContext
+        where TCustomDbContext : DbContext, ICustomDbContext
         {
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
@@ -112,6 +114,14 @@ namespace Skoruba.IdentityServer4.Admin.Api.Helpers
                 options.UseSqlServer(
                     configuration.GetConnectionString(ConfigurationConsts.AdminLogDbConnectionStringKey),
                     optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)));
+
+            //Mehdi
+            // Log DB from existing connection
+            services.AddDbContext<TCustomDbContext>(options =>
+                options.UseSqlServer(
+                    configuration.GetConnectionString(ConfigurationConsts.AdminCustomDbConnectionStringKey),
+                    optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)));
+
         }
 
         /// <summary>
@@ -123,9 +133,9 @@ namespace Skoruba.IdentityServer4.Admin.Api.Helpers
         /// <param name="services"></param>
         /// <param name="adminApiConfiguration"></param>
         public static void AddApiAuthentication<TIdentityDbContext, TUser, TRole>(this IServiceCollection services,
-            AdminApiConfiguration adminApiConfiguration) 
-            where TIdentityDbContext : DbContext 
-            where TRole : class 
+            AdminApiConfiguration adminApiConfiguration)
+            where TIdentityDbContext : DbContext
+            where TRole : class
             where TUser : class
         {
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)

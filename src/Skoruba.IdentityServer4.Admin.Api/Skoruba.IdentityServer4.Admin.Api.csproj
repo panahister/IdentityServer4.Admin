@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Custom.BusinessLogic.Identity\Custom.BusinessLogic.Identity.csproj" />
+    <ProjectReference Include="..\..\Custom.EntityFramework.Identity\Custom.EntityFramework.Identity.csproj" />
+    <ProjectReference Include="..\..\Skoruba.IdentityServer4.Admin.Custom.EntityFramework\Custom.EntityFramework.csproj" />
     <ProjectReference Include="..\Skoruba.IdentityServer4.Admin.BusinessLogic.Identity\Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.csproj" />
     <ProjectReference Include="..\Skoruba.IdentityServer4.Admin.BusinessLogic.Shared\Skoruba.IdentityServer4.Admin.BusinessLogic.Shared.csproj" />
     <ProjectReference Include="..\Skoruba.IdentityServer4.Admin.BusinessLogic\Skoruba.IdentityServer4.Admin.BusinessLogic.csproj" />
