@@ -4,6 +4,13 @@ using System.Linq;
 
 namespace Custom.BusinessLogic.Identity.Dtos
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TPersonDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TUserDto"></typeparam>
+    /// <typeparam name="TUserDtoKey"></typeparam>
     public class PepoleDto<TPersonDto, TKey, TUserDto, TUserDtoKey> : IPepoleDto
          where TPersonDto : PersonDto<TKey, TUserDto, TUserDtoKey>
       
